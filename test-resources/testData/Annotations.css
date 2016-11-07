@@ -1,0 +1,23 @@
+:global .foo {
+
+}
+
+:global(.foo) {
+
+}
+
+:local .foo {
+
+}
+
+:local(.foo) {
+
+}
+
+.normal {
+
+}
+
+.bar {
+    composes: normal;
+}

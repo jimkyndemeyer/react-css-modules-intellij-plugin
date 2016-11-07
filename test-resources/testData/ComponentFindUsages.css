@@ -1,0 +1,12 @@
+.nor<caret>malusage {
+    font-size: 12px
+}
+
+.north {
+
+}
+
+.error {
+    composes: north;
+    color: darkred;
+}

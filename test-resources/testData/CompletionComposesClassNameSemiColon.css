@@ -1,0 +1,12 @@
+.normal {
+    font-size: 12px
+}
+
+.north {
+
+}
+
+.error {
+    composes: <caret>;
+    color: darkred;
+}
