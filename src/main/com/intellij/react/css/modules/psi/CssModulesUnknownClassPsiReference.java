@@ -25,7 +25,8 @@ public class CssModulesUnknownClassPsiReference extends PsiReferenceBase<PsiElem
     @Nullable
     @Override
     public PsiElement resolve() {
-        return null;
+        // self reference to prevent JS tooling from reporting unresolved symbol
+        return this.getElement();
     }
 
     @NotNull
