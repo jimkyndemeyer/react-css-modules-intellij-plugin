@@ -20,6 +20,7 @@
       <ul>
         <li>Completion and error highlighting for CSS classes used in React styleName attributes</li>
         <li>Completion and error highlighting for CSS classes used in styles string literals, e.g. styles['my-class']</li>
+        <li>Intention to create missing CSS class from usage in React</li>
         <li>Integrates React references to CSS class names with 'Find Usages', 'Rename', and 'Go to Declaration'</li>
       </ul>
     ]]></description>
@@ -52,6 +53,11 @@
 
     <annotator language="TypeScript" implementationClass="com.intellij.react.css.modules.ide.annotator.CssModulesClassAnnotator" />
     <annotator language="JavaScript" implementationClass="com.intellij.react.css.modules.ide.annotator.CssModulesClassAnnotator" />
+
+    <intentionAction>
+      <className>com.intellij.react.css.modules.ide.intentions.CssModulesCreateClassIntention</className>
+      <category>CSS Modules</category>
+    </intentionAction>
 
   </extensions>
 

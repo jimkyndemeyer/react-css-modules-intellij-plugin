@@ -53,7 +53,7 @@ public class CssModulesIndexedStylesVarPsiReferenceContributor extends PsiRefere
                     } else {
                         if (referencedStyleSheet.get() != null) {
                             final TextRange rangeInElement = TextRange.from(1, element.getTextLength() - 2); // minus string quotes
-                            return new PsiReference[]{new CssModulesUnknownClassPsiReference(element, rangeInElement)};
+                            return new PsiReference[]{new CssModulesUnknownClassPsiReference(element, rangeInElement, referencedStyleSheet.get())};
                         }
                     }
 

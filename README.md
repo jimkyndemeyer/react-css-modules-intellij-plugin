@@ -6,6 +6,7 @@ It provides the following features in IntelliJ IDEA, WebStorm, RubyMine, PhpStor
 
 - Completion and error highlighting for require'd CSS classes used in React `styleName` attributes
 - Completion and error highlighting for require'd CSS classes used in styles string literals, e.g. `styles['my-class']`
+- Intention to create missing CSS class from usage in React
 - Integrates React references to CSS class names with 'Find Usages', 'Rename', and 'Go to Declaration'
 
 ## Features demo

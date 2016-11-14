@@ -10,6 +10,7 @@ package com.intellij.react.css.modules.psi;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReferenceBase;
+import com.intellij.psi.css.StylesheetFile;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,8 +19,11 @@ import org.jetbrains.annotations.Nullable;
  */
 public class CssModulesUnknownClassPsiReference extends PsiReferenceBase<PsiElement> {
 
-    public CssModulesUnknownClassPsiReference(@NotNull PsiElement element, TextRange rangeInElement) {
+    private final StylesheetFile stylesheetFile;
+
+    public CssModulesUnknownClassPsiReference(@NotNull PsiElement element, TextRange rangeInElement, StylesheetFile stylesheetFile) {
         super(element, rangeInElement);
+        this.stylesheetFile = stylesheetFile;
     }
 
     @Nullable
@@ -35,4 +39,7 @@ public class CssModulesUnknownClassPsiReference extends PsiReferenceBase<PsiElem
         return new Object[0];
     }
 
+    public StylesheetFile getStylesheetFile() {
+        return stylesheetFile;
+    }
 }

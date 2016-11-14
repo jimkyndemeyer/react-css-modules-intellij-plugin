@@ -61,7 +61,7 @@ public class CssModulesStyleNameAttributePsiReferenceContributor extends PsiRefe
                                 }
                             });
                         } else {
-                            referenceList.add(new CssModulesUnknownClassPsiReference(element, rangeInElement));
+                            referenceList.add(new CssModulesUnknownClassPsiReference(element, rangeInElement, styleSheetFile));
                         }
                         offset += cssClassName.length() + 1;
                     }
