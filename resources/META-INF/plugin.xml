@@ -50,8 +50,8 @@
     <completion.confidence language="TypeScript JSX" implementationClass="com.intellij.react.css.modules.ide.completion.CssModulesClassNameCompletionConfidence" />
     <completion.confidence language="JSX Harmony" implementationClass="com.intellij.react.css.modules.ide.completion.CssModulesClassNameCompletionConfidence" />
 
-    <annotator language="TypeScript JSX" implementationClass="com.intellij.react.css.modules.ide.annotator.CssModulesClassAnnotator" />
-    <annotator language="JSX Harmony" implementationClass="com.intellij.react.css.modules.ide.annotator.CssModulesClassAnnotator" />
+    <annotator language="TypeScript" implementationClass="com.intellij.react.css.modules.ide.annotator.CssModulesClassAnnotator" />
+    <annotator language="JavaScript" implementationClass="com.intellij.react.css.modules.ide.annotator.CssModulesClassAnnotator" />
 
   </extensions>
 
