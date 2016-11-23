@@ -10,3 +10,7 @@
     composes: normal;
     color: darkred;
 }
+
+:global(.not-css-modules) {
+    fill: red;
+}

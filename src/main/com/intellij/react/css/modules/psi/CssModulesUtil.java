@@ -20,6 +20,7 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiRecursiveElementVisitor;
 import com.intellij.psi.PsiReference;
 import com.intellij.psi.css.CssClass;
+import com.intellij.psi.css.CssFunction;
 import com.intellij.psi.css.StylesheetFile;
 import com.intellij.psi.filters.ElementFilter;
 import com.intellij.psi.filters.position.FilterPattern;
@@ -124,7 +125,7 @@ public class CssModulesUtil {
                     return;
                 }
                 if (element instanceof CssClass) {
-                    if (cssClass.equals(element.getText())) {
+                    if (cssClass.equals(element.getText()) && isCssModuleClass((CssClass) element)) {
                         cssClassRef.set((CssClass) element);
                         return;
                     }
@@ -133,6 +134,21 @@ public class CssModulesUtil {
             }
         });
         return cssClassRef.get();
+    }
+
+    /**
+     * Gets whether the specified CSS class is a CSS Modules class.
+     * Classes nested in :global are considered false.
+     */
+    public static boolean isCssModuleClass(CssClass cssClass) {
+        final CssFunction parentFunction = PsiTreeUtil.getParentOfType(cssClass, CssFunction.class);
+        if(parentFunction != null) {
+            if("global".equals(parentFunction.getName())) {
+                // not a generated CSS Modules class
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

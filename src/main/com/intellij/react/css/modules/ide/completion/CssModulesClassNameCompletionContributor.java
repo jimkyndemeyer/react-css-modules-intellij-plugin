@@ -61,6 +61,9 @@ public class CssModulesClassNameCompletionContributor extends CompletionContribu
 
             private void addCompletions(@NotNull CompletionResultSet result, StylesheetFile stylesheetFile) {
                 for (CssClass cssClass : PsiTreeUtil.findChildrenOfType(stylesheetFile, CssClass.class)) {
+                    if(!CssModulesUtil.isCssModuleClass(cssClass)) {
+                        continue;
+                    }
                     LookupElementBuilder element = LookupElementBuilder.createWithIcon(cssClass);
                     if (cssClass.getPresentation() != null) {
                         final String location = cssClass.getPresentation().getLocationString();
