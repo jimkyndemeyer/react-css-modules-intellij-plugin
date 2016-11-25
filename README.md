@@ -38,7 +38,9 @@ PyCharm CE is not supported since the plugin depends on two other plugins: NodeJ
 
 **Where can I get the plugin?**
 
-The plugin will be released using the JetBrains Plugin Repository in the near future.
+The plugin is available from the JetBrains Plugin Repository at https://plugins.jetbrains.com/plugin/9275
+
+To install it, open "Settings", "Plugins", "Browse repositories..." and search for "CSS Modules".
 
 ## License
 MIT
