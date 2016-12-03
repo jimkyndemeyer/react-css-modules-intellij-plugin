@@ -49,6 +49,16 @@ public class CssModulesCodeInsightTest extends LightCodeInsightFixtureTestCase {
     }
 
     @Test
+    public void testCompletionComponentEs6Import() {
+        doTestCompletion("ComponentEs6Import.jsx", Lists.newArrayList("error", "normal", "north"));
+    }
+
+    @Test
+    public void testCompletionComponentEs6ImportStyleName() {
+        doTestCompletion("ComponentEs6ImportStyleName.jsx", Lists.newArrayList("error", "normal", "north"));
+    }
+
+    @Test
     public void testCompletionComponentNor() {
         doTestCompletion("ComponentNor.jsx", Lists.newArrayList("normal", "north"));
     }

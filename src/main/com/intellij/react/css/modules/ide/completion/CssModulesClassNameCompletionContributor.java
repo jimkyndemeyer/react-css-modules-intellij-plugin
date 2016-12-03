@@ -10,7 +10,6 @@ package com.intellij.react.css.modules.ide.completion;
 import com.intellij.codeInsight.completion.*;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
-import com.intellij.lang.javascript.psi.JSVariable;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.css.CssClass;
@@ -48,9 +47,9 @@ public class CssModulesClassNameCompletionContributor extends CompletionContribu
                 } else if (completionElement.getParent() instanceof JSLiteralExpression) {
                     // Completion for styles['my-class-name']
                     final JSLiteralExpression literalExpression = (JSLiteralExpression) completionElement.getParent();
-                    final JSVariable cssClassNameVariable = CssModulesUtil.getCssClassNamesVariableDeclaration(literalExpression);
-                    if (cssClassNameVariable != null) {
-                        final StylesheetFile stylesheetFile = CssModulesUtil.resolveStyleSheetFile(cssClassNameVariable);
+                    final PsiElement cssClassNamesImportOrRequire = CssModulesUtil.getCssClassNamesImportOrRequireDeclaration(literalExpression);
+                    if (cssClassNamesImportOrRequire != null) {
+                        final StylesheetFile stylesheetFile = CssModulesUtil.resolveStyleSheetFile(cssClassNamesImportOrRequire);
                         if (stylesheetFile != null) {
                             addCompletions(result, stylesheetFile);
                         }

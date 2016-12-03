@@ -8,6 +8,8 @@
 package com.intellij.react.css.modules.psi;
 
 import com.intellij.lang.ASTNode;
+import com.intellij.lang.ecmascript6.psi.ES6FromClause;
+import com.intellij.lang.ecmascript6.psi.ES6ImportedBinding;
 import com.intellij.lang.javascript.JSTokenTypes;
 import com.intellij.lang.javascript.psi.JSFile;
 import com.intellij.lang.javascript.psi.JSIndexedPropertyAccessExpression;
@@ -103,6 +105,9 @@ public class CssModulesUtil {
                 if (element instanceof JSLiteralExpression) {
                     if (resolveStyleSheetFile(element, file)) return;
                 }
+                if(element instanceof ES6FromClause) {
+                    if (resolveStyleSheetFile(element, file)) return;
+                }
                 super.visitElement(element);
             }
         });
@@ -152,12 +157,13 @@ public class CssModulesUtil {
     }
 
     /**
-     * Gets the variable declaration that a string literal belongs to, e.g 'normal' -> 'const styles = require("./foo.css")' based on <code>styles['normal']</code>
+     * Gets the import/require declaration that a string literal belongs to, e.g 'normal' ->
+     * 'const styles = require("./foo.css")' or 'import styles from "./foo.css"' based on <code>styles['normal']</code>
      *
      * @param classNameLiteral a string literal that is potentially a CSS class name
      * @return the JS variable that is a potential require of a style sheet file, or <code>null</code> if the PSI structure doesn't match
      */
-    public static JSVariable getCssClassNamesVariableDeclaration(JSLiteralExpression classNameLiteral) {
+    public static PsiElement getCssClassNamesImportOrRequireDeclaration(JSLiteralExpression classNameLiteral) {
         final JSIndexedPropertyAccessExpression expression = PsiTreeUtil.getParentOfType(classNameLiteral, JSIndexedPropertyAccessExpression.class);
         if (expression != null) {
             // string literal is part of "var['string literal']", e.g. "styles['normal']"
@@ -166,7 +172,10 @@ public class CssModulesUtil {
                 if (psiReference != null) {
                     final PsiElement varReference = psiReference.resolve();
                     if (varReference instanceof JSVariable) {
-                        return (JSVariable) varReference;
+                        return varReference;
+                    }
+                    if(varReference instanceof ES6ImportedBinding) {
+                        return varReference.getParent();
                     }
                 }
             }
@@ -189,6 +198,9 @@ public class CssModulesUtil {
                     return;
                 }
                 if (element instanceof JSLiteralExpression) {
+                    if (resolveStyleSheetFile(element, stylesheetFileRef)) return;
+                }
+                if(element instanceof ES6FromClause) {
                     if (resolveStyleSheetFile(element, stylesheetFileRef)) return;
                 }
                 super.visitElement(element);

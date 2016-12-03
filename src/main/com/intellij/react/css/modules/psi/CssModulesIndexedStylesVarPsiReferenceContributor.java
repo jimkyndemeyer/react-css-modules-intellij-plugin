@@ -8,7 +8,6 @@
 package com.intellij.react.css.modules.psi;
 
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
-import com.intellij.lang.javascript.psi.JSVariable;
 import com.intellij.openapi.util.Ref;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
@@ -31,11 +30,11 @@ public class CssModulesIndexedStylesVarPsiReferenceContributor extends PsiRefere
             @NotNull
             @Override
             public PsiReference[] getReferencesByElement(@NotNull PsiElement element, @NotNull ProcessingContext context) {
-                final JSVariable cssClassNamesVariable = CssModulesUtil.getCssClassNamesVariableDeclaration((JSLiteralExpression) element);
-                if (cssClassNamesVariable != null) {
+                final PsiElement cssClassNamesImportOrRequire = CssModulesUtil.getCssClassNamesImportOrRequireDeclaration((JSLiteralExpression) element);
+                if (cssClassNamesImportOrRequire != null) {
                     final String literalClass = "." + StringUtils.stripStart(StringUtils.stripEnd(element.getText(), "\"'"), "\"'");
                     final Ref<StylesheetFile> referencedStyleSheet = new Ref<>();
-                    final CssClass cssClass = CssModulesUtil.getCssClass(cssClassNamesVariable, literalClass, referencedStyleSheet);
+                    final CssClass cssClass = CssModulesUtil.getCssClass(cssClassNamesImportOrRequire, literalClass, referencedStyleSheet);
                     if (cssClass != null) {
                         return new PsiReference[]{new PsiReferenceBase<PsiElement>(element) {
                             @Nullable

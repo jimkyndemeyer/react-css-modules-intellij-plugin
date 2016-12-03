@@ -10,7 +10,6 @@ package com.intellij.react.css.modules.ide.completion;
 
 import com.intellij.codeInsight.completion.CompletionConfidence;
 import com.intellij.lang.javascript.psi.JSLiteralExpression;
-import com.intellij.lang.javascript.psi.JSVariable;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.css.StylesheetFile;
@@ -27,9 +26,9 @@ public class CssModulesClassNameCompletionConfidence extends CompletionConfidenc
     @Override
     public ThreeState shouldSkipAutopopup(@NotNull PsiElement contextElement, @NotNull PsiFile psiFile, int offset) {
         if (contextElement.getParent() instanceof JSLiteralExpression) {
-            final JSVariable cssClassNamesVariable = CssModulesUtil.getCssClassNamesVariableDeclaration((JSLiteralExpression) contextElement.getParent());
-            if (cssClassNamesVariable != null) {
-                final StylesheetFile stylesheetFile = CssModulesUtil.resolveStyleSheetFile(cssClassNamesVariable);
+            final PsiElement cssClassNamesImportOrRequire = CssModulesUtil.getCssClassNamesImportOrRequireDeclaration((JSLiteralExpression) contextElement.getParent());
+            if (cssClassNamesImportOrRequire != null) {
+                final StylesheetFile stylesheetFile = CssModulesUtil.resolveStyleSheetFile(cssClassNamesImportOrRequire);
                 if (stylesheetFile != null) {
                     return ThreeState.NO;
                 }
